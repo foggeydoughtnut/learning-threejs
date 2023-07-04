@@ -7,7 +7,6 @@ import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
 const Monkey = (props) => {
-  const [hovered, setHovered] = useState(false);
   const ref = useRef(null);
 
   const { nodes, materials } = useGLTF("/monkey.gltf");
@@ -15,35 +14,21 @@ const Monkey = (props) => {
   useFrame((state, delta) => (ref.current.rotation.y += 0.01));
 
 
-  useEffect(() => {
-    if (hovered) {
-      nodes.Suzanne.material.color = {
-        r: 1,
-        g: 0,
-        b: 0,
-        isColor: true
-      }
-      nodes.Suzanne.material.emissive = {
-        r: 0,
-        g: 0,
-        b: 0,
-        isColor: true
-      }
-    } else {
-      nodes.Suzanne.material.color = {
-        r: 0,
-        g: 1,
-        b: 0,
-        isColor: true
-      }
-      nodes.Suzanne.material.emissive = {
-        r: 0,
-        g: 0,
-        b: 0,
-        isColor: true
-      }
-    }
-  }, [hovered])
+  const hoveredColor = {
+    r: 1,
+    g: 0,
+    b: 0,
+    isColor: true,
+  };
+
+  const baseColor = {
+    r: 0,
+    g: 1,
+    b: 0,
+    isColor: true,
+  };
+
+  nodes.Suzanne.material.color = baseColor;
 
   return (
 
@@ -54,8 +39,8 @@ const Monkey = (props) => {
         receiveShadow
         geometry={nodes.Suzanne.geometry}
         material={nodes.Suzanne.material}
-        onPointerOver={(e) => setHovered(true)}
-        onPointerOut={(e) => setHovered(false)}
+        onPointerOver={(e) => (ref.current.material.color = hoveredColor)}
+        onPointerOut={(e) => (ref.current.material.color = baseColor)}
       />
     </group>
   );

@@ -11,7 +11,7 @@ const Home = () => {
         >
           <ambientLight intensity={0.1} />
           <pointLight position={[10, 5, 10]} color={[1.0, 1.0, 1.0]} />
-          <Monkey position={[0, 1, 0]} scale={0.75}/>
+          <Monkey position={[0, 2, 0]} scale={0.75}/>
           <TextureSphere scale={1.0} position={[0, -1, 0]}/>
         </Canvas>
       </div>
